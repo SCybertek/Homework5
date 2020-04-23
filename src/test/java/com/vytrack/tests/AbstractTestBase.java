@@ -60,11 +60,15 @@ public abstract class AbstractTestBase {
         Driver.getDriver().manage().window().maximize();
         wait = new WebDriverWait(Driver.getDriver(),20);
         actions = new Actions(Driver.getDriver());
-        test = report.createTest("Verify options availability");
+        //test = report.createTest("Verify options availability");
         LoginPage loginPage = new LoginPage();
         loginPage.login();
         loginPage.navigateTo("Activities", "Calendar Events");
     }
+    //Before method also includes these steps that are common for every test :
+    //1.Go to “https://qa1.vytrack.com/"
+    // 2.Login as a store manager
+    // 3.Navigate to “Activities -> Calendar Events”
 
     @AfterMethod
     public void teardown(ITestResult iTestResult) throws IOException {

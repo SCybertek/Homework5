@@ -6,6 +6,7 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,6 +63,102 @@ public class CalendarEventsPage extends AbstractBasePage{
 
     @FindBy (css = "[id^='date_selector_oro_calendar_event_form_end-uid']")
     private WebElement endDate;
+
+    @FindBy(xpath = "//li[text()='9:00 PM']")
+    private WebElement setTime;
+
+    @FindBy (css = "[id^='recurrence-repeat']")
+    private WebElement repeatCheckBox;
+
+    @FindBy (css = "[id^='recurrence-repeats-view']")
+    private WebElement repeatsDropDown;
+
+    @FindBy (xpath = "//*[text()='Never']/preceding-sibling::input")
+    private WebElement radioButtonNever;
+
+    @FindBy (xpath = "//*[text()='After']/preceding-sibling::input")
+    private WebElement radioButtonAfter;
+
+    @FindBy (xpath = "//*[text()='By']/preceding-sibling::input")
+    private WebElement radioButtonBy;
+
+    @FindBy (css = "[class='control-group recurrence-summary alert-info']")
+    private WebElement summaryMessage;
+
+
+    @FindBy (xpath = "(//*[@class='recurrence-subview-control__datetime']//following-sibling::input)[1]")
+    private WebElement placeHolderForDate;
+
+    @FindBy (className = "ui-datepicker-month")
+    private WebElement month;
+
+    @FindBy (className = "ui-datepicker-year")
+    private WebElement year;
+
+    @FindBy (xpath = "//table//td//a[contains(text(),'18')]")
+    protected WebElement date;
+
+
+    public String getSummaryMessage(){
+        BrowserUtils.waitForPageToLoad(10);
+        wait.until(ExpectedConditions.visibilityOf(summaryMessage));
+        return summaryMessage.getText();
+    }
+
+    public boolean neverIsSelected(){
+        BrowserUtils.waitForPageToLoad(10);
+        wait.until(ExpectedConditions.visibilityOf(radioButtonNever));
+        return radioButtonNever.isSelected();
+    }
+
+    public void selectAfterRadioButtonAndEnter10(){
+            BrowserUtils.waitForPageToLoad(10);
+            wait.until(ExpectedConditions.visibilityOf(radioButtonAfter)).click();
+            WebElement input = driver.findElement(By.xpath("//*[text()='After']//following-sibling::input"));
+            input.sendKeys("10");
+            WebElement occurrences = driver.findElement(By.xpath("//*[text()='After']//following-sibling::span")) ;
+            occurrences.click(); //needs to be done for summary to be updated
+    }
+
+    public void selectRadioButtonByAndClickOnChooseDate(){
+        BrowserUtils.waitForPageToLoad(10);
+        wait.until(ExpectedConditions.visibilityOf(radioButtonBy)).click();
+        wait.until(ExpectedConditions.elementToBeClickable(placeHolderForDate)).click();
+
+    }
+
+
+
+    public WebElement getMonth(){
+        return month;
+    }
+     public WebElement getYear(){
+        return year;
+     }
+
+     public void clickOnDate(){
+        wait.until(ExpectedConditions.elementToBeClickable(date)).click();
+     }
+
+    public WebElement getRepeatsDropDown(){
+        return repeatsDropDown;
+    }
+
+    public boolean getRepeatCheckBox(){
+        return repeatCheckBox.isSelected();
+    }
+
+    public void clickOnRepeatBox(){
+        BrowserUtils.waitForPageToLoad(10);
+        wait.until(ExpectedConditions.elementToBeClickable(repeatCheckBox)).click();
+    }
+
+
+    public void setTime900(){
+        BrowserUtils.waitForPageToLoad(10);
+        wait.until(ExpectedConditions.elementToBeClickable(setTime)).click();
+    }
+
 
     public void clickAllDayBox(){
         BrowserUtils.waitForPageToLoad(10);
@@ -159,6 +256,11 @@ public class CalendarEventsPage extends AbstractBasePage{
     public boolean startTimeAndEndTimeIsDisplayed() {
         BrowserUtils.waitForPageToLoad(10);
         return (startTime.isDisplayed() && endTime.isDisplayed());
+    }
+
+    public void selectCheckBox(String value){
+        BrowserUtils.waitForPageToLoad(10);
+        driver.findElement(By.xpath("//input[@value='"+value+"']")).click();
     }
 
 }

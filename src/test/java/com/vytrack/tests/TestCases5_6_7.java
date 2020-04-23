@@ -16,6 +16,7 @@ public class TestCases5_6_7 extends AbstractTestBase {
 
     public WebDriver driver;
 
+    //Verify that difference between end and start time is exactly 1 hour
     @Test(description = "Verify that time difference between start and end is 1 hour")
     public void startTimeAndEndTime1HourTest() {
         CalendarEventsPage calendarEventsPage = new CalendarEventsPage();
@@ -29,22 +30,24 @@ public class TestCases5_6_7 extends AbstractTestBase {
         Assert.assertEquals(actual,1);
     }
 
+    //5.Select “9:00 PM” as a start time
+    // 6.Verify that end time is equals to “10:00 PM”
     @Test(description = "Verify that when start time is 9:00 PM end time is 10:00 PM")
     public void startTimeAndEndTimeTest(){
         CalendarEventsPage calendarEventsPage = new CalendarEventsPage();
         calendarEventsPage.clickOnCreateCalendarEvent();
         calendarEventsPage.clickStartTime();
         BrowserUtils.wait(2);
-        WebElement time = driver.findElement(By.xpath("//div[@class='ui-timepicker-wrapper']//li[contains(text(),'9:00 PM')]"));
-        wait.until(ExpectedConditions.visibilityOf(time));
-        time.click();
-//???
+        calendarEventsPage.setTime900();
+        //i used driver in here but it gave me nullPointerException, due to our singelton driver class
 
-
-       // Assert.assertEquals(calendarEventsPage.getEndTime(),"10:00 PM");
+        Assert.assertEquals(calendarEventsPage.getEndTime(),"10:00 PM");
 
     }
 
+    //5.Select “All-Day Event” checkbox
+    // 6.Verify that “All-Day Event” checkbox is selected
+    // 7.Verify that start and end time input boxes are not displayed8.Verify that start and end date input boxes are displayed
     @Test (description = "Verify that when you select all day event start and end time are not displayed" )
     public void allDayEventTest(){
         CalendarEventsPage calendarEventsPage = new CalendarEventsPage();

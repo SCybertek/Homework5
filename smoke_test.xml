@@ -1,0 +1,11 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="Smoke test">
+    <test name="Smoke test for Calendar Events Module">
+        <classes>
+            <class name="com.vytrack.tests.TestCase1and2"></class>
+            <class name="com.vytrack.tests.TestCase3and4"></class>
+            <class name="com.vytrack.tests.TestCases5_6_7"></class>
+            <class name="com.vytrack.tests.TestCases8to12"></class>
+        </classes>
+    </test>
+</suite>

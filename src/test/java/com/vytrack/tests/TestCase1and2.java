@@ -10,7 +10,8 @@ import java.util.List;
 
 public class TestCase1and2 extends AbstractTestBase {
 
-
+    //Hover on three dots “...” for “Testers meeting” calendar event
+    //5.Verify that “view”, “edit” and “delete” options are available
     @Test (description = "Verify that view, edit and delete options are available")
     public void optionsVisibilityTest(){
 
@@ -26,6 +27,9 @@ public class TestCase1and2 extends AbstractTestBase {
         Assert.assertTrue(calendarEventsPage.options());
     }
 
+    //4.Click on “Grid Options” button
+    // 5.Deselect all options except “Title”
+    // 6.Verify that “Title” column still displayed
     @Test (description = "Verify that ONLY title column is displayed ")
     public void gridOptionsTest(){
         CalendarEventsPage calendarEventsPage = new CalendarEventsPage();
